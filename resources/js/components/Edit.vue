@@ -8,7 +8,7 @@
       <label for="content">內容</label>
       <textarea class="form-control" name="content" cols="30" rows="10" v-model="content"></textarea>
     </div>
-    <router-link class="btn btn-default" :to="`/${post.id}`">返回</router-link>
+    <router-link class="btn btn-default" :to="`/${pid}`">返回</router-link>
     <button type="button" class="btn btn-primary" @click="send">送出</button>
   </div>
 </template>
@@ -19,13 +19,18 @@ export default {
     return {
       post: null,
       title: '',
-      content: ''
+      content: '',
+      pid:'',
     };
   },
   created() {
     const id = this.$route.params.id;
-
-    axios.get(`/web/public/api/crud/${id}`).then(response => {
+    this.pid = id;
+    console.log(this.pid)
+    // '/' api/crud 最前面的斜線必須添加 否則會以目前URL為基準增加網址上去
+    // 有了最前面的斜線會從domain開始組URL
+    axios.get(`/api/crud/${this.pid}`).then(response => {
+       console.log(response.data.post)
       const post = response.data.post;
       this.post = post;
       this.title = post.title;
@@ -37,7 +42,7 @@ export default {
       const title = this.title.trim();
       const content = this.content.trim();
       axios
-        .put(`/web/public/api/crud/${this.post.id}`, {
+        .put(`/api/crud/${this.post.id}`, {
           title: title,
           content: content
         })

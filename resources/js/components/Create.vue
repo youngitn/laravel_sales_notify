@@ -26,7 +26,7 @@ export default {
       const title = this.title.trim();
       const content = this.content.trim();
       axios
-        .post("web/public/api/crud", {
+        .post("/api/crud", {
           title: title,
           content: content,
         })

@@ -29,7 +29,7 @@ export default {
     };
   },
   created() {
-    axios.get('web/public/api/crud').then(response => {
+    axios.get('/api/crud').then(response => {
       this.posts = response.data.posts;
     });
   }

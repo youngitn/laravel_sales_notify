@@ -33,14 +33,14 @@ export default {
   created() {
     // 取得route帶的參數
     const id = this.$route.params.id;
-    axios.get(`web/public/api/crud/${id}`).then((response) => {
+    axios.get(`/api/crud/${id}`).then((response) => {
       this.post = response.data.post;
     });
   },
   //給call的方法
   methods: {
     destroy() {
-      axios.delete(`web/public/api/crud/${this.post.id}`).then(() => {
+      axios.delete(`/api/crud/${this.post.id}`).then(() => {
         this.$router.push("/indexx");
       });
     },

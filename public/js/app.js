@@ -1936,7 +1936,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var title = this.title.trim();
       var content = this.content.trim();
-      axios.post("web/public/api/crud", {
+      axios.post("/api/crud", {
         title: title,
         content: content
       }).then(function (response) {
@@ -1979,14 +1979,20 @@ __webpack_require__.r(__webpack_exports__);
     return {
       post: null,
       title: '',
-      content: ''
+      content: '',
+      pid: ''
     };
   },
   created: function created() {
     var _this = this;
 
     var id = this.$route.params.id;
-    axios.get("/web/public/api/crud/".concat(id)).then(function (response) {
+    this.pid = id;
+    console.log(this.pid); // '/' api/crud 最前面的斜線必須添加 否則會以目前URL為基準增加網址上去
+    // 有了最前面的斜線會從domain開始組URL
+
+    axios.get("/api/crud/".concat(this.pid)).then(function (response) {
+      console.log(response.data.post);
       var post = response.data.post;
       _this.post = post;
       _this.title = post.title;
@@ -1999,7 +2005,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var title = this.title.trim();
       var content = this.content.trim();
-      axios.put("/web/public/api/crud/".concat(this.post.id), {
+      axios.put("/api/crud/".concat(this.post.id), {
         title: title,
         content: content
       }).then(function (response) {
@@ -2058,7 +2064,7 @@ __webpack_require__.r(__webpack_exports__);
 
     // 取得route帶的參數
     var id = this.$route.params.id;
-    axios.get("web/public/api/crud/".concat(id)).then(function (response) {
+    axios.get("/api/crud/".concat(id)).then(function (response) {
       _this.post = response.data.post;
     });
   },
@@ -2067,7 +2073,7 @@ __webpack_require__.r(__webpack_exports__);
     destroy: function destroy() {
       var _this2 = this;
 
-      axios["delete"]("web/public/api/crud/".concat(this.post.id)).then(function () {
+      axios["delete"]("/api/crud/".concat(this.post.id)).then(function () {
         _this2.$router.push("/indexx");
       });
     }
@@ -2117,7 +2123,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('web/public/api/crud').then(function (response) {
+    axios.get('/api/crud').then(function (response) {
       _this.posts = response.data.posts;
     });
   }
@@ -37897,7 +37903,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "router-link",
-        { staticClass: "btn btn-default", attrs: { to: "/" + _vm.post.id } },
+        { staticClass: "btn btn-default", attrs: { to: "/" + _vm.pid } },
         [_vm._v("返回")]
       ),
       _vm._v(" "),
@@ -53950,8 +53956,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\laravel\sales_notify\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\laravel\sales_notify\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
